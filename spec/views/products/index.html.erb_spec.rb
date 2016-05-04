@@ -5,11 +5,19 @@ RSpec.describe "products/index", type: :view do
     assign(:products, [
       Product.create!(
         :name => "Name",
-        :price => "9.99"
+        :price => "9.99",
+        :quantity => 1,
+        :description => "MyText",
+        :brand => nil,
+        :category => nil
       ),
       Product.create!(
         :name => "Name",
-        :price => "9.99"
+        :price => "9.99",
+        :quantity => 1,
+        :description => "MyText",
+        :brand => nil,
+        :category => nil
       )
     ])
   end
@@ -18,5 +26,9 @@ RSpec.describe "products/index", type: :view do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "9.99".to_s, :count => 2
+    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    assert_select "tr>td", :text => nil.to_s, :count => 2
+    assert_select "tr>td", :text => nil.to_s, :count => 2
   end
 end
