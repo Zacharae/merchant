@@ -2,7 +2,7 @@
 
 <p>
   
-<%= image_tag @product.avatar.url %>
+<!-- %= image_tag @product.avatar.url % -->
 <%= image_tag @product.avatar.url (:medium) %>
 <%= image_tag @product.avatar.url (:thumb) %>
 </p>
@@ -29,12 +29,12 @@
 
 <p>
   <strong>Brand:</strong>
-  <%= @product.brand %>
+  <%= @product.brand.name %>
 </p>
 
 <p>
   <strong>Category:</strong>
-  <%= @product.category %>
+  <%= @product.category.name %>
 </p>
 
 <%= link_to 'Edit', edit_admin_product_path(@product) %> |

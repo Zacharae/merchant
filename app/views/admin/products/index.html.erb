@@ -2,7 +2,7 @@
 
 <h1>Listing Products</h1>
 
-<table class="table" >
+<table class="table-hover" >
   <thead>
     <tr>
       <th>Name</th>
@@ -24,6 +24,7 @@
         <td><%= admin_product.description %></td>
         <td><%= admin_product.brand.name %></td>
         <td><%= admin_product.category.name %></td>
+        <td><%= image_tag admin_product.avatar.url (:thumb) %> </td>
         <td><%= link_to 'Show', admin_product_path(admin_product) %></td>
         <td><%= link_to 'Edit', edit_admin_product_path(admin_product) %></td>
         <td><%= link_to 'Destroy', admin_product_path(admin_product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
