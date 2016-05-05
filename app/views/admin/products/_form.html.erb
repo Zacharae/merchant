@@ -6,10 +6,14 @@
     <%= f.input :price %>
     <%= f.input :quantity %>
     <%= f.input :description %>
-    <%= f.input :avatar, as: :file %>
     <%= f.association :brand %>
     <%= f.association :category %>
+    <%= f.input :avatar, as: :file, label: "Upload a product image" %>
+  </div>
 
+  <div class="field">
+    <!-- %= f.label :avatar % -->
+    <!-- %= f.file_field :avatar % -->
   </div>
 
   <div class="form-actions">

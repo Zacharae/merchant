@@ -2,7 +2,7 @@
 
 <h1>Listing Products</h1>
 
-<table class="table-hover" >
+<table class="table-bordered" >
   <thead>
     <tr>
       <th>Name</th>
@@ -19,7 +19,7 @@
     <% @products.each do |admin_product| %>
       <tr>
         <td><%= admin_product.name %></td>
-        <td><%= admin_product.price %></td>
+        <td><%= number_to_currency admin_product.price %></td>
         <td><%= admin_product.quantity %></td>
         <td><%= admin_product.description %></td>
         <td><%= admin_product.brand.name %></td>
