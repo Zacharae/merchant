@@ -18,6 +18,9 @@ Rails.application.configure do
 
 # just doing what the devise documentation told me to - Zach
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # TODO: Set default url for action mailer in production
+  # config.action_mailer.default_url_options = { host: 'actual host or domain' }
+
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
