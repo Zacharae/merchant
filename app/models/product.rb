@@ -12,4 +12,8 @@ class Product < ActiveRecord::Base
   validates :name, presence: true, length: {minimum: 2} 
   validates :brand, presence: true
   validates :category, presence: true
+
+  def self.search_by_name_or_description(string)
+    where("name LIKE ? OR description LIKE ?", "%#{string}", "%#{string}")
+  end
 end
