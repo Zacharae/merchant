@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resource :cart, only:[:edit, :update, :destroy]
+  resources :line_items, only: [:create]
+
   get 'carts/edit'
 
   get '/shop' => 'storefront#index'
