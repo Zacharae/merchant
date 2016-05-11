@@ -13,7 +13,14 @@ def destroy
       redirect_to edit_cart_path
     end
   end
-  
-  def edit
+
+
+
+def edit
+  #     if @cart.empty?
+  #       @cart.destroy
+  #     else 
+  #       @cart 
+  #     end
   end
 end
