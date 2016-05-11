@@ -1,7 +1,8 @@
-<h2>Your Cart</h2>
 
+<p id="notice"><%= notice %></p>
+<h2>Your Shopping Cart</h2>
 
 <%= render @cart %>
 
-<%= link_to "continue shopping", shop_path, class: "btn btn-success" %>
-<%= link_to "empty cart", @cart, method: :delete, data: {confirm: "are you sure?"}, class: "btn btn-danger" %>
+<%= link_to "Continue Shopping", shop_path, class: "btn btn-success" %>
+<%= link_to "Empty Cart", @cart, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>

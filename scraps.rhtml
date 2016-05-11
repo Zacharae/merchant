@@ -133,3 +133,133 @@ this goes in navbar links
 
 <h3>Order Subtotal: <%= number_to_currency @cart.subtotal %></h3>
 line_items.build(product: product, price: product
+
+
+
+from _cart.html.erb
+
+<table class="table">
+	<thead>
+		<tr>
+			<th colspan="2">Product</th>
+			<th>Quantity</th>
+			<th>Unit Price</th>
+			<th>Total Price</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @cart.line_items.each do |item| %>
+			<tr>
+				<td><%= image_tag item.product.avatar.url(:thumb), class: "img-responsive img-thumbnail" %></td>
+				<td>
+					<h5><%= item.product.name %></h5>
+					<p><%= link_to fa_icon('trash', text: 'remove item') %> </p>
+				</td>
+				<td><%= simple_form_for(item, html: {class: 'form-inline'}) do |item_fields| %>
+				<%= item_fields.input :quantity, label: false %>
+				<!-- %= item_fields.button % -->
+				</td>
+				<td><%= number_to_currency item.price %></td>
+				<td><%= number_to_currency item.total_price %></td>
+			</tr>
+	</tbody>
+</table>
+<h3>Order Subtotal: <%= number_to_currency @cart.subtotal %></h3>
+
+
+
+from edit.html.erb
+
+
+<h2>Your Cart</h2>
+
+
+<%= render @cart %>
+
+<%= link_to "continue shopping", shop_path, class: "btn btn-success" %>
+<%= link_to "empty cart", @cart, method: :delete, data: {confirm: "are you sure?"}, class: "btn btn-danger" %>
+
+
+
+
+
+
+
+from cart.rb
+
+
+class Cart < ActiveRecord::Base
+	has_many :line_items, dependent: :destroy
+
+	def subtotal
+		line_items.select("SUM(quantity * price) AS sum")[0].sum 
+
+		#line_items.to_a.sum{ |item| item.total }
+	end
+
+  def add_product(product_id)
+      product = Product.find(product_id)
+
+      current_item = line_items.find_by(product_id: product_id)
+
+      if current_item
+        current_item.quantity += 1
+      else
+        current_item = line_items.build(product: product, price: product.price)      
+      end
+      current_item
+  end
+end
+
+
+
+from line_items_controller.rb
+class LineItemsController < ApplicationController
+
+include CurrentCart
+before_action :set_cart
+
+	def create
+		product = Product.find(params[:product_id])
+		@line_item = @cart.add_product(product.id)
+	
+
+	if @line_item.save
+		flash[:notice] = "#{product.name} was added to your cart!"
+		redirect_to shop_path
+	else
+		flash.now[:alert] = "could not add this item to your cart"
+	end
+end
+
+def destroy
+	@line_item = @cart.line.line_items.find(params[:id])
+	if @line_item.destroy
+	redirect_to edit_cart_path(@cart), notice: "Item removed from cart"
+	else
+		redirect_to @cart, alert: "could not remove from cart."
+	end	
+end
+
+def update
+	@line_item = @cart.line_items.find(params[:id])
+	if @line_item.quantity <= 0
+		@line_item.destroy
+		redirect_to edit_cart_path(@cart), notice: "Item removed from cart"
+	elsif  @line_item.update(line_item_params)
+		redirect_to edit_cart_path(@cart), notice: "#{@line_item.product.name} quantity updated"
+	else
+		redirect_to edit_cart_path(@cart), alert: "could not update quantity"
+	end
+end
+
+private
+
+def line_item_params
+	params.require(:line_item).permit(:quantity)
+end
+end
+
+
+
+
