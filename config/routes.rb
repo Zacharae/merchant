@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
-  
+  resource :cart, only:[:edit, :update, :destroy]
+  resources :line_items, only: [:create, :destroy, :update]
+  resources :orders, only: [:new, :create, :show]
+
+
+  get 'carts/edit'
+
+  get '/shop' => 'storefront#index'
+  get '/about' => 'storefront#about'
+  root 'storefront#index'
+
+  devise_for :users
   namespace :admin do
     resources :products
     resources :brands
@@ -9,7 +20,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+ #  root 'storefront#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
