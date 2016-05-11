@@ -1,14 +1,17 @@
 <%= simple_form_for(@order) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :address %>
-    <%= f.input :pay_type %>
-    <%= f.association :user %>
+  <div class="field form-group">
+
+    <%= f.input :name, class: "form-control", placeholder: "John Smith" %>
+  </div>
+  <!-- check bootstrap forms -->
+  <div>
+    <%= f.input :address, class: "form-control", placeholder: "123 Fake St \nAnytown, ST \nUSA 12345" %>
+    <%= f.select :pay_type, Order::PAYMENT_TYPES, {prompt: "Select a payment type"}, {class: "form-control"} %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Place Order", class: "btn btn-success btn-lrg" %>
   </div>
 <% end %>
