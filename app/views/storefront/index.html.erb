@@ -12,7 +12,7 @@
       <div class="col-sm-4">
         <div class="panel panel-default">
           <div class="panel-body">
-            <%= image_tag product.avatar.url (:medium) %>
+            <%= image_tag product.avatar.url (:medium), class: "img-responsive" %>
             <span class="text-right pull-right">
               <h5><%= number_to_currency product.price %></h5>
             </span>
