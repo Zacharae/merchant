@@ -31,7 +31,7 @@ gem "paperclip", "~> 4.3"
 gem 'devise'
 gem 'kaminari'
 gem 'figaro'
-gem 'aws-sdk', '<2'
+gem 'aws-sdk'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
